@@ -1,5 +1,5 @@
 {
-  "name": "construction",
+  "name": "Contracting",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -9,10 +9,21 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/cairo": "^0.2.2",
+    "@react-native-masked-view/masked-view": "0.2.7",
+    "@react-navigation/bottom-tabs": "^6.4.0",
+    "@react-navigation/native": "^6.0.13",
+    "@react-navigation/stack": "^6.3.2",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
-    "react-native": "0.69.6"
+    "react-native": "0.69.6",
+    "react-native-gesture-handler": "~2.5.0",
+    "react-native-safe-area-context": "4.3.1",
+    "react-native-screens": "~3.15.0",
+    "react-native-size-matters": "^0.4.0",
+    "react-native-svg": "12.3.0",
+    "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
