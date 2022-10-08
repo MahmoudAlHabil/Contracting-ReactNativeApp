@@ -1,41 +1,82 @@
-import { View, Text, ScrollView, useWindowDimensions, Dimensions } from 'react-native'
-import React, { useState } from 'react'
-import { SvgXml } from 'react-native-svg'
-import { Icons } from '../../utils'
-import styles from './styles'
-import { Button } from '../../components'
+import React, { useState } from "react";
+import { View, useWindowDimensions, FlatList } from "react-native";
+import { Icons } from "../../utils";
+import styles from "./styles";
+import { Button } from "../../components";
+import Dots from "./components/Dots";
+import OnboardingItem from "./components/OnboardingItem";
+const data = [
+  {
+    id: 1,
+    imageUrl: Icons.logo1,
+  },
+  {
+    id: 2,
+    imageUrl: Icons.logo2,
+  },
+  {
+    id: 3,
+    imageUrl: Icons.logo2,
+  },
+  {
+    id: 4,
+    imageUrl: Icons.logo2,
+  },
+  {
+    id: 5,
+    imageUrl: Icons.logo2,
+  },
+  {
+    id: 6,
+    imageUrl: Icons.logo2,
+  },
+  {
+    id: 7,
+    imageUrl: Icons.logo2,
+  },
+];
 
 const Onboarding = ({ navigation }) => {
-    const { width } = useWindowDimensions()
-    const [page, setPage] = useState(0)
+  const { width } = useWindowDimensions();
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    const handleOnScroll = (event) => {
-        parseInt(event.nativeEvent.contentOffset.x) >= parseInt(width) / 2 ? setPage(1) : setPage(0)
-    }
+  const handleOnScroll = (event) => {
+    const leftSpace = event.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(leftSpace / width);
+    setActiveIndex(currentIndex);
+  };
 
-    return (
-        <View style={styles.container}>
-            <ScrollView
-                horizontal
-                pagingEnabled
-                disableIntervalMomentum
-                onScroll={(e) => handleOnScroll(e)}
-                showsHorizontalScrollIndicator={false}>
-                <View style={{ width: width, justifyContent: 'center', alignItems: 'center' }}><SvgXml xml={Icons.logo1} /></View>
-                <View style={{ width: width, justifyContent: 'center', alignItems: 'center' }}><SvgXml xml={Icons.logo2} /></View>
-            </ScrollView>
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        pagingEnabled
+        disableIntervalMomentum
+        onScroll={handleOnScroll}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => <OnboardingItem imageUrl={item.imageUrl} />}
+      />
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        scrollEnabled={false}
+        contentContainerStyle={styles.dotsContentContainerStyle}
+        renderItem={({ index }) => (
+          <Dots index={index} activeIndex={activeIndex} />
+        )}
+      />
+      <Button
+        title="تخطي"
+        buttonStyle={styles.button}
+        titleStyle={styles.title}
+        onPress={() => navigation.navigate("HomeTab")}
+      />
+    </View>
+  );
+};
 
-            {page == 1 ? <View style={styles.bullets}>
-                <Text style={styles.primaryBullet}>{'\u25CF'}</Text>
-                <Text style={styles.grayBullet}>{'\u25CF'}</Text>
-            </View> : <View style={styles.bullets}>
-                <Text style={styles.grayBullet}>{'\u25CF'}</Text>
-                <Text style={styles.primaryBullet}>{'\u25CF'}</Text>
-            </View>}
-            <Button title="تخطي" buttonStyle={styles.button} titleStyle={styles.title}
-                onPress={() => navigation.navigate('HomeTab')} />
-        </View>
-    )
-}
-
-export default Onboarding
+export default Onboarding;
