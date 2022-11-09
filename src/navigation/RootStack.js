@@ -5,7 +5,7 @@ import HomeTab from './HomeTab';
 
 const Stack = createStackNavigator();
 
-const StartStack = () => {
+const RootStack = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Onboarding" component={Onboarding} />
@@ -14,4 +14,4 @@ const StartStack = () => {
     );
 }
 
-export default StartStack;
+export default RootStack;

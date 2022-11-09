@@ -18,22 +18,6 @@ const data = [
     id: 3,
     imageUrl: Icons.logo2,
   },
-  {
-    id: 4,
-    imageUrl: Icons.logo2,
-  },
-  {
-    id: 5,
-    imageUrl: Icons.logo2,
-  },
-  {
-    id: 6,
-    imageUrl: Icons.logo2,
-  },
-  {
-    id: 7,
-    imageUrl: Icons.logo2,
-  },
 ];
 
 const Onboarding = ({ navigation }) => {
@@ -58,17 +42,19 @@ const Onboarding = ({ navigation }) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <OnboardingItem imageUrl={item.imageUrl} />}
       />
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false}
-        contentContainerStyle={styles.dotsContentContainerStyle}
-        renderItem={({ index }) => (
-          <Dots index={index} activeIndex={activeIndex} />
-        )}
-      />
+      <View style={styles.dots}>
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          scrollEnabled={false}
+          contentContainerStyle={styles.dotsContentContainerStyle}
+          renderItem={({ index }) => (
+            <Dots index={index} activeIndex={activeIndex} />
+          )}
+        />
+      </View>
       <Button
         title="تخطي"
         buttonStyle={styles.button}

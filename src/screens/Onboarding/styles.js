@@ -21,6 +21,9 @@ const styles = ScaledSheet.create({
     color: Colors.primary,
     fontFamily: Fonts.SemiBold,
   },
+  dots: {
+    bottom: 200,
+  },
   dotsContentContainerStyle: {
     justifyContent: "center",
     flex: 1,

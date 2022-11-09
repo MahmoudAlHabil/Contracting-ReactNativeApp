@@ -4,6 +4,7 @@ import { SvgXml } from 'react-native-svg'
 import { Icons } from '../../utils'
 import styles from './styles'
 import { Header } from '../../components'
+import { useNavigation } from '@react-navigation/native'
 
 const DATA = [
     { id: 1, title1: 'التعريف', title2: 'بقطاع المقاولات', icon: Icons.homeIcons.one },
@@ -20,24 +21,28 @@ const DATA = [
     { id: 12, title1: 'لجنة المقاولات: رسالتها', title2: '-أهدافها–إنجازاتها', icon: Icons.homeIcons.twelve },
 ]
 
-const Item = ({ title1, title2, icon }) => (
-    <TouchableOpacity style={styles.item}>
-        <View style={styles.icon}>
-            <SvgXml xml={icon} />
-        </View>
-        <View>
-            <Text style={styles.title}>{title1}</Text>
-            <Text style={styles.title}>{title2}</Text>
-        </View>
-    </TouchableOpacity>
-);
+const Item = ({ title1, title2, icon }) => {
+    const {navigate} = useNavigation();
+    return (
+        <TouchableOpacity style={styles.item} onPress={() => navigate('ItemDetails', { title: title1 + ' ' + title2 })}>
+            <View style={styles.icon}>
+                <SvgXml xml={icon} />
+            </View>
+            <View>
+                <Text style={styles.title}>{title1}</Text>
+                <Text style={styles.title}>{title2}</Text>
+            </View>
+        </TouchableOpacity>
+    )
+};
 
-const HeaderList = <View><Header title='المقاولات' /><Text style={styles.indexText}>الفهرس</Text></View>
-const renderItem = ({ item }) => <Item title1={item.title1} title2={item.title2}  icon={item.icon} />
+const HeaderList = <Text style={styles.indexText}>الفهرس</Text>
+const renderItem = ({ item }) => <Item title1={item.title1} title2={item.title2} icon={item.icon} />
 
 const Home = () => {
     return (
         <View style={styles.container}>
+            <Header title='المقاولات' />
             <FlatList
                 data={DATA}
                 renderItem={renderItem}
@@ -46,7 +51,9 @@ const Home = () => {
                 ListHeaderComponent={HeaderList}
                 contentContainerStyle={styles.containerFlatList}
                 showsVerticalScrollIndicator={false}
+                fixedHeaderIndices={HeaderList.props.children[0]}
             />
+            {console.log(HeaderList.props.children[0])}
         </View>
     )
 }

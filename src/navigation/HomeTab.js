@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ScaledSheet } from 'react-native-size-matters';
 import { AboutUs, ContactUs, Home } from '../screens';
 import { Colors } from '../utils';
+import HomeStack from './HomeStack';
 
 
 const Tab = createBottomTabNavigator();
@@ -28,20 +29,24 @@ const HomeTab = () => {
                 tabBarActiveTintColor: Colors.primary,
                 tabBarInactiveTintColor: Colors.gray,
                 headerShown: false,
-                tabBarStyle: styles.tabBarStyle,
             })}
         >
-            <Tab.Screen name="الرئيسية" component={Home} />
-            <Tab.Screen name="من نحن" component={AboutUs} />
-            <Tab.Screen name="تواصل معنا" component={ContactUs} />
+            <Tab.Screen name="HomeStack" component={HomeStack} options={{
+                tabBarLabel: "الرئيسية", tabBarLabelStyle: { fontSize: 12 },
+                tabBarIcon: ({ focused, color, size }) => <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />
+            }} />
+            <Tab.Screen name="AboutUs" component={AboutUs} options={{
+                tabBarLabel: "من نحن", tabBarLabelStyle: { fontSize: 12 },
+                tabBarIcon: ({ focused, color, size }) => <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} size={size} color={color} />
+            }} />
+            <Tab.Screen name="ContactUs" component={ContactUs} options={{
+                tabBarLabel: "تواصل معنا", tabBarLabelStyle: { fontSize: 12 },
+                tabBarIcon: ({ focused, color, size }) => <Ionicons name={focused ? 'call' : 'call-outline'} size={size} color={color} />
+            }} />
         </Tab.Navigator>
     );
 }
 
 export default HomeTab;
 
-const styles = ScaledSheet.create({
-    tabBarStyle: {
-        backgroundColor: Colors.white,
-    },
-})
+const styles = ScaledSheet.create({})

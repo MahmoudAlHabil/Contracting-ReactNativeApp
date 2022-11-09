@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, useWindowDimensions, StyleSheet } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 const OnboardingItem = ({ imageUrl }) => {
   const { width } = useWindowDimensions();
+  const style = useMemo(() => styles(width), [width]);
   return (
-    <View style={[styles.imageContainer, { width: width }]}>
+    <View style={style.imageContainer}>
       <SvgXml xml={imageUrl} />
     </View>
   );
@@ -13,9 +14,10 @@ const OnboardingItem = ({ imageUrl }) => {
 
 export default OnboardingItem;
 
-const styles = StyleSheet.create({
+const styles = (width) => StyleSheet.create({
   imageContainer: {
     justifyContent: "center",
     alignItems: "center",
+    width: width,
   },
 });
